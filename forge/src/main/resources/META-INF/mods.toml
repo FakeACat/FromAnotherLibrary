@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "MIT"
+[[mods]]
+modId = "fromanotherlibrary"
+version = "${file.jarVersion}"
+displayName = "${mod_name}"
+logoFile = "fromanotherlibrary.png"
+authors = "${mod_author}"
+description = '''
+Stuff to make developing my mods easier
+'''
+[[dependencies.fromanotherlibrary]]
+modId = "forge"
+mandatory = true
+versionRange = "[46,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.fromanotherlibrary]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
