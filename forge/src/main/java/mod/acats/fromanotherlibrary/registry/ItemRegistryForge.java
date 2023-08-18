@@ -5,16 +5,16 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
-
 public class ItemRegistryForge {
-    public static void register(Register<Item> itemRegister, IEventBus eventBus) {
-        final HashMap<String, DeferredRegister<Item>> itemRegisters = new HashMap<>();
-        itemRegister.registerAll((id, sup) -> {
-            DeferredRegister<Item> register = itemRegisters.computeIfAbsent(id.getNamespace(), (iD) -> DeferredRegister.create(ForgeRegistries.ITEMS, iD));
-            register.register(id.getPath(), sup);
-        });
+    public static void register(CommonMod mod, IEventBus eventBus) {
+        if (mod.getItemRegister() == null) {
+            return;
+        }
 
-        itemRegisters.forEach((id, reg) -> reg.register(eventBus));
+        final DeferredRegister<Item> register = DeferredRegister.create(ForgeRegistries.ITEMS, mod.getID());
+
+        mod.getItemRegister().registerAll(register::register);
+
+        register.register(eventBus);
     }
 }

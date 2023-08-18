@@ -4,9 +4,9 @@ license = "MIT"
 [[mods]]
 modId = "fromanotherlibrary"
 version = "${file.jarVersion}"
-displayName = "${mod_name}"
+displayName = "FromAnotherLibrary"
 logoFile = "fromanotherlibrary.png"
-authors = "${mod_author}"
+authors = "a cats"
 description = '''
 Stuff to make developing my mods easier
 '''

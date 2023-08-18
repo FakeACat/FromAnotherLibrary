@@ -1,33 +1,34 @@
 package mod.acats.fromanotherlibrary.registry;
 
-import net.minecraft.resources.ResourceLocation;
-
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class Register<T> {
-    Register(){
+    public Register(){
     }
 
-    private final HashMap<ResourceLocation, RegistryObject<? extends T>> map = new HashMap<>();
+    private final HashMap<String, RegistryObject<? extends T>> map = new HashMap<>();
 
-    public <E extends T> RegistryObject<E> register(ResourceLocation id, Supplier<E> supplier){
+    public <E extends T> RegistryObject<E> register(String id, Supplier<E> supplier){
         RegistryObject<E> fawRegistryObject = new RegistryObject<>(supplier);
         map.put(id, fawRegistryObject);
         return fawRegistryObject;
     }
 
-    final void registerAll(BiConsumer<ResourceLocation, Supplier<? extends T>> registerer){
+    final void registerAll(BiConsumer<String, Supplier<? extends T>> registerer){
         map.forEach((id, registryObject) -> registerer.accept(id, registryObject::build));
     }
 
-    public final void forEach(BiConsumer<ResourceLocation, Supplier<? extends T>> action){
+    public final void forEach(BiConsumer<String, Supplier<? extends T>> action){
         map.forEach((id, registryObject) -> action.accept(id, registryObject::get));
     }
 
-    public final T get(ResourceLocation id) {
-        return this.map.get(id).get();
+    public final Optional<T> get(String id) {
+        if (this.map.containsKey(id)) {
+            return Optional.of(this.map.get(id).get());
+        }
+        return Optional.empty();
     }
-
 }
