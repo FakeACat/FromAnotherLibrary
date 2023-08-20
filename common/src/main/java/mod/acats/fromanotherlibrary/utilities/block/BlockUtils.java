@@ -7,15 +7,17 @@ import net.minecraft.world.level.block.Blocks;
 
 public class BlockUtils {
     public static void setFlammableBlocks(CommonMod mod) {
-        if (mod.getBlockRegister() != null) {
+        mod.getBlockRegister().ifPresent(blockRegister -> {
+
             FireBlockInvoker invoker = (FireBlockInvoker) Blocks.FIRE;
 
-            mod.getBlockRegister().forEach((id2, sup) -> {
+            blockRegister.forEach((id2, sup) -> {
                 Block block = sup.get();
                 if (block instanceof Flammable f) {
-                    invoker.invokeSetFlammable(block, f.fireSpread(), f.flammability());
+                    invoker.fal$invokeSetFlammable(block, f.fireSpread(), f.flammability());
                 }
             });
-        }
+
+        });
     }
 }

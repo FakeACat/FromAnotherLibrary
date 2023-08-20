@@ -1,9 +1,8 @@
 package mod.acats.fromanotherlibrary.registry.client;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
+import java.util.Optional;
 
 public interface ClientMod {
-    @Nullable Collection<BlockEntityRendererEntry<?>> getBlockRendererEntries();
+    Optional<Collection<BlockEntityRendererEntry<?>>> getBlockRendererEntries();
 }

@@ -9,15 +9,10 @@ import net.minecraft.world.level.block.Block;
 
 public class BlockRegistryFabric {
     public static void register(CommonMod mod) {
-        if (mod.getBlockRegister() == null) {
-            return;
-        }
-
-        mod.getBlockRegister().registerAll((id, sup) -> {
-            Block block = Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(mod.getID(), id), sup.get());
-            if (mod.getItemRegister() != null) {
-                mod.getItemRegister().register(id, () -> new BlockItem(block, new FabricItemSettings()));
-            }
-        });
+        mod.getBlockRegister().ifPresent(blockRegister ->
+                blockRegister.registerAll((id, sup) -> {
+                    Block block = Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(mod.getID(), id), sup.get());
+                    mod.getItemRegister().ifPresent(itemRegister -> itemRegister.register(id, () -> new BlockItem(block, new FabricItemSettings())));
+                }));
     }
 }

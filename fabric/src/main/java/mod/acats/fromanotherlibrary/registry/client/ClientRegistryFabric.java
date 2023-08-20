@@ -8,25 +8,33 @@ import net.minecraft.world.level.block.Block;
 
 public class ClientRegistryFabric {
     public static void registerClient(CommonMod commonMod) {
-        ClientMod clientMod = commonMod.getClientMod();
-        if (clientMod == null) {
-            return;
-        }
+        commonMod.getClientMod().ifPresent(ClientRegistryFabric::registerBlockEntityRenderers);
 
-        if (clientMod.getBlockRendererEntries() != null) {
-            clientMod.getBlockRendererEntries().forEach(renderer -> renderer.register(BlockEntityRenderers::register));
-        }
+        registerColourProviders(commonMod);
+    }
 
-        if (commonMod.getBlockRegister() != null) {
-            commonMod.getBlockRegister().forEach((id, sup) -> {
-                Block block = sup.get();
-                if (block instanceof Colourable colourable) {
-                    ColorProviderRegistry.BLOCK.register(colourable.getBlockColour(), block);
-                    if (commonMod.getItemRegister() != null) {
-                        commonMod.getItemRegister().get(id).ifPresent(item -> ColorProviderRegistry.ITEM.register(colourable.getItemColour(), item));
+    private static void registerBlockEntityRenderers(ClientMod clientMod) {
+        clientMod.getBlockRendererEntries().ifPresent(blockRendererEntries ->
+                blockRendererEntries.forEach(renderer ->
+                        renderer.register(BlockEntityRenderers::register)));
+    }
+
+    private static void registerColourProviders(CommonMod commonMod) {
+        commonMod.getBlockRegister()
+                .ifPresent(blockRegister ->
+                blockRegister.forEach((id, sup) -> {
+
+                    Block block = sup.get();
+
+                    if (block instanceof Colourable colourable) {
+
+                        ColorProviderRegistry.BLOCK.register(colourable.getBlockColour(), block);
+
+                        commonMod.getItemRegister()
+                                .flatMap(itemRegister -> itemRegister.get(id))
+                                .ifPresent(item -> ColorProviderRegistry.ITEM.register(colourable.getItemColour(), item));
+
                     }
-                }
-            });
-        }
+                }));
     }
 }

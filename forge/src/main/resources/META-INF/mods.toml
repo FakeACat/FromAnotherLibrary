@@ -4,7 +4,7 @@ license = "MIT"
 [[mods]]
 modId = "fromanotherlibrary"
 version = "${file.jarVersion}"
-displayName = "FromAnotherLibrary"
+displayName = "From Another Library"
 logoFile = "fromanotherlibrary.png"
 authors = "a cats"
 description = '''

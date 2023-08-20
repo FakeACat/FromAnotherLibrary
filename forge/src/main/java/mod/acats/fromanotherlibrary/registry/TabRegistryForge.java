@@ -7,13 +7,14 @@ import net.minecraftforge.registries.DeferredRegister;
 
 public class TabRegistryForge {
     public static void register(CommonMod mod, IEventBus eventBus) {
-        if (mod.getTabRegister() == null) {
-            return;
-        }
+        mod.getTabRegister().ifPresent(tabRegister -> {
 
-        final DeferredRegister<CreativeModeTab> register = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, mod.getID());
-        mod.getTabRegister().registerAll(register::register);
+            final DeferredRegister<CreativeModeTab> register = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, mod.getID());
 
-        register.register(eventBus);
+            tabRegister.registerAll(register::register);
+
+            register.register(eventBus);
+
+        });
     }
 }

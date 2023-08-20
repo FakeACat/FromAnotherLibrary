@@ -10,17 +10,23 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class BlockRegistryForge {
     public static void register(CommonMod mod, IEventBus bus) {
-        if (mod.getBlockRegister() == null) {
-            return;
-        }
 
-        final DeferredRegister<Block> blockRegister = DeferredRegister.create(ForgeRegistries.BLOCKS, mod.getID());
-        mod.getBlockRegister().registerAll((id, sup) -> {
-            RegistryObject<Block> block = blockRegister.register(id, sup);
-            if (mod.getItemRegister() != null) {
-                mod.getItemRegister().register(id, () -> new BlockItem(block.get(), new Item.Properties()));
-            }
+        mod.getBlockRegister().ifPresent(blockFALRegister -> {
+
+            final DeferredRegister<Block> blockRegister = DeferredRegister.create(ForgeRegistries.BLOCKS, mod.getID());
+
+            blockFALRegister.registerAll((id, sup) -> {
+
+                RegistryObject<Block> block = blockRegister.register(id, sup);
+
+                mod.getItemRegister().ifPresent(itemRegister ->
+                        itemRegister.register(id, () -> new BlockItem(block.get(), new Item.Properties()))
+                );
+
+            });
+
+            blockRegister.register(bus);
+
         });
-        blockRegister.register(bus);
     }
 }

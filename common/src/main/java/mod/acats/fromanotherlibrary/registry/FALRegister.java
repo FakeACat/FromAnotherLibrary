@@ -5,16 +5,16 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-public class Register<T> {
-    public Register(){
+public class FALRegister<T> {
+    public FALRegister(){
     }
 
-    private final HashMap<String, RegistryObject<? extends T>> map = new HashMap<>();
+    private final HashMap<String, FALRegistryObject<? extends T>> map = new HashMap<>();
 
-    public <E extends T> RegistryObject<E> register(String id, Supplier<E> supplier){
-        RegistryObject<E> fawRegistryObject = new RegistryObject<>(supplier);
-        map.put(id, fawRegistryObject);
-        return fawRegistryObject;
+    public <E extends T> FALRegistryObject<E> register(String id, Supplier<E> supplier){
+        FALRegistryObject<E> falRegistryObject = new FALRegistryObject<>(supplier);
+        map.put(id, falRegistryObject);
+        return falRegistryObject;
     }
 
     final void registerAll(BiConsumer<String, Supplier<? extends T>> registerer){
