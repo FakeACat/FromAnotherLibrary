@@ -18,9 +18,21 @@ import java.util.function.Supplier;
 public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        CommonMod.ALL.forEach((id, mod) ->
-                mod.getClientMod().flatMap(ClientMod::getBlockRendererEntries).ifPresent(rendererEntries ->
-                        rendererEntries.forEach(renderer -> renderer.register(event::registerBlockEntityRenderer))));
+        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(clientMod -> {
+
+            clientMod.getEntityRendererEntries().ifPresent(rendererEntries ->
+                    rendererEntries.forEach(renderer -> renderer.register(event::registerEntityRenderer)));
+
+            clientMod.getBlockEntityRendererEntries().ifPresent(rendererEntries ->
+                    rendererEntries.forEach(renderer -> renderer.register(event::registerBlockEntityRenderer)));
+
+        }));
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event){
+        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().flatMap(ClientMod::getModelLayerRegister).ifPresent(layerRegister ->
+                layerRegister.forEach(event::registerLayerDefinition)));
     }
 
     @SubscribeEvent

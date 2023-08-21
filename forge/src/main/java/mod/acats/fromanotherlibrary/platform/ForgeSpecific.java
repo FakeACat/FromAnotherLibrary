@@ -1,9 +1,6 @@
 package mod.acats.fromanotherlibrary.platform;
 
-import mod.acats.fromanotherlibrary.registry.BlockRegistryForge;
-import mod.acats.fromanotherlibrary.registry.CommonMod;
-import mod.acats.fromanotherlibrary.registry.ItemRegistryForge;
-import mod.acats.fromanotherlibrary.registry.TabRegistryForge;
+import mod.acats.fromanotherlibrary.registry.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -39,9 +36,11 @@ public class ForgeSpecific implements ModLoaderSpecific {
     public void registerAllCommonModContent(CommonMod mod) {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        EntityRegistryForge.register(mod, eventBus);
         TabRegistryForge.register(mod, eventBus);
         BlockRegistryForge.register(mod, eventBus);
         ItemRegistryForge.register(mod, eventBus);
+        BlockEntityRegistryForge.register(mod, eventBus);
     }
 
     @Override

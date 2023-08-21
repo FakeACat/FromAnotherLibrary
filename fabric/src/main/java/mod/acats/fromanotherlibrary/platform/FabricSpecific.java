@@ -1,9 +1,6 @@
 package mod.acats.fromanotherlibrary.platform;
 
-import mod.acats.fromanotherlibrary.registry.BlockRegistryFabric;
-import mod.acats.fromanotherlibrary.registry.CommonMod;
-import mod.acats.fromanotherlibrary.registry.ItemRegistryFabric;
-import mod.acats.fromanotherlibrary.registry.TabRegistryFabric;
+import mod.acats.fromanotherlibrary.registry.*;
 import mod.acats.fromanotherlibrary.utilities.block.BlockUtils;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
@@ -36,11 +33,13 @@ public class FabricSpecific implements ModLoaderSpecific {
 
     @Override
     public void registerAllCommonModContent(CommonMod mod) {
+        EntityRegistryFabric.register(mod);
         TabRegistryFabric.register(mod);
         BlockRegistryFabric.register(mod);
         BlockUtils.setFlammableBlocks(mod);
         ItemRegistryFabric.register(mod);
         TabRegistryFabric.populate(mod);
+        BlockEntityRegistryFabric.register(mod);
     }
 
     @Override
