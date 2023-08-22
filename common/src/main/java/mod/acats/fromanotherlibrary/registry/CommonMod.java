@@ -1,5 +1,6 @@
 package mod.acats.fromanotherlibrary.registry;
 
+import mod.acats.fromanotherlibrary.FromAnotherLibrary;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import net.minecraft.world.entity.EntityType;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -33,12 +35,32 @@ public interface CommonMod {
     Optional<HashMap<EntityType<? extends LivingEntity>, Supplier<AttributeSupplier.Builder>>> getEntityAttributeRegister();
     Optional<ClientMod> getClientMod();
 
+    default File getConfigFolder() {
+        return new File(ModLoaderSpecific.INSTANCE.getConfigDirectory(this).toFile(), this.getID() + "/");
+    }
+
+    void loadConfigs();
+    default void preRegisterContent() {
+    }
+    default void postRegisterContent() {
+    }
+
     /**
      * Registers all common content from in the CommonMod
      * ClientRegistryFabric.registerClient must be used in the ClientModInitializer to register client content on Fabric
      */
-    default void registerEverything() {
+    default void init() {
         ALL.put(this.getID(), this);
+
+        if (!getConfigFolder().exists() && !getConfigFolder().mkdirs()){
+            FromAnotherLibrary.LOGGER.error("Unable to create config directory for " + this.getID());
+        }
+        else {
+            this.loadConfigs();
+        }
+
+        this.preRegisterContent();
         ModLoaderSpecific.INSTANCE.registerAllCommonModContent(this);
+        this.postRegisterContent();
     }
 }

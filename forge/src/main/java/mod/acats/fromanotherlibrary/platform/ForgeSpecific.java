@@ -13,7 +13,9 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.fml.loading.FMLPaths;
 
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 public class ForgeSpecific implements ModLoaderSpecific {
@@ -54,5 +56,10 @@ public class ForgeSpecific implements ModLoaderSpecific {
     @Override
     public SpawnEggItem createSpawnEgg(Supplier<EntityType<? extends Mob>> entityTypeSupplier, int primaryColour, int secondaryColour) {
         return new ForgeSpawnEggItem(entityTypeSupplier, primaryColour, secondaryColour, new Item.Properties());
+    }
+
+    @Override
+    public Path getConfigDirectory(CommonMod mod) {
+        return FMLPaths.CONFIGDIR.get();
     }
 }

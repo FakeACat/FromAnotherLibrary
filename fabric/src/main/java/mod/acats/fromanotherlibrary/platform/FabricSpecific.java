@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 public class FabricSpecific implements ModLoaderSpecific {
@@ -53,5 +54,10 @@ public class FabricSpecific implements ModLoaderSpecific {
     @Override
     public SpawnEggItem createSpawnEgg(Supplier<EntityType<? extends Mob>> entityTypeSupplier, int primaryColour, int secondaryColour) {
         return new SpawnEggItem(entityTypeSupplier.get(), primaryColour, secondaryColour, new Item.Properties());
+    }
+
+    @Override
+    public Path getConfigDirectory(CommonMod mod) {
+        return FabricLoader.getInstance().getConfigDir();
     }
 }
