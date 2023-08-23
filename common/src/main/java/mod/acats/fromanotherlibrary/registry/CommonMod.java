@@ -3,6 +3,7 @@ package mod.acats.fromanotherlibrary.registry;
 import mod.acats.fromanotherlibrary.FromAnotherLibrary;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -34,14 +35,13 @@ public interface CommonMod {
     Optional<FALRegister<EntityType<?>>> getEntityRegister();
     Optional<HashMap<EntityType<? extends LivingEntity>, Supplier<AttributeSupplier.Builder>>> getEntityAttributeRegister();
     Optional<ClientMod> getClientMod();
+    Optional<FALRegister<ParticleType<?>>> getParticleRegister();
 
-    default File getConfigFolder() {
-        return new File(ModLoaderSpecific.INSTANCE.getConfigDirectory(this).toFile(), this.getID() + "/");
-    }
+    void loadConfigs(File configFolder);
 
-    void loadConfigs();
     default void preRegisterContent() {
     }
+
     default void postRegisterContent() {
     }
 
@@ -52,11 +52,12 @@ public interface CommonMod {
     default void init() {
         ALL.put(this.getID(), this);
 
-        if (!getConfigFolder().exists() && !getConfigFolder().mkdirs()){
-            FromAnotherLibrary.LOGGER.error("Unable to create config directory for " + this.getID());
+        File configFolder = new File(ModLoaderSpecific.INSTANCE.getConfigDirectory(this).toFile(), this.getID() + "/");
+        if (!configFolder.exists() && !configFolder.mkdirs()){
+            FromAnotherLibrary.LOGGER.error("Unable to create config directory for " + '"' + this.getID() + '"');
         }
         else {
-            this.loadConfigs();
+            this.loadConfigs(configFolder);
         }
 
         this.preRegisterContent();

@@ -43,6 +43,7 @@ public class ForgeSpecific implements ModLoaderSpecific {
         BlockRegistryForge.register(mod, eventBus);
         ItemRegistryForge.register(mod, eventBus);
         BlockEntityRegistryForge.register(mod, eventBus);
+        ParticleRegistryForge.register(mod, eventBus);
     }
 
     @Override

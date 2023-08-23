@@ -11,5 +11,6 @@ import java.util.function.Supplier;
 public interface ClientMod {
     Optional<Collection<BlockEntityRendererEntry<?>>> getBlockEntityRendererEntries();
     Optional<Collection<EntityRendererEntry<?>>> getEntityRendererEntries();
+    Optional<Collection<ParticleClientEntry<?>>> getParticleClientEntries();
     Optional<HashMap<ModelLayerLocation, Supplier<LayerDefinition>>> getModelLayerRegister();
 }

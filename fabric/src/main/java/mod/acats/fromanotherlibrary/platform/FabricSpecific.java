@@ -41,6 +41,7 @@ public class FabricSpecific implements ModLoaderSpecific {
         ItemRegistryFabric.register(mod);
         TabRegistryFabric.populate(mod);
         BlockEntityRegistryFabric.register(mod);
+        ParticleRegistryFabric.register(mod);
     }
 
     @Override

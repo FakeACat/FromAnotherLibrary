@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -70,5 +71,12 @@ public class ClientEvents {
         if (block instanceof Colourable colourable) {
             event.register(colourable.getBlockColour(), block);
         }
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event){
+        CommonMod.ALL.forEach((id, mod) ->
+                mod.getClientMod().flatMap(ClientMod::getParticleClientEntries).ifPresent(entries ->
+                        entries.forEach(entry -> entry.register((type, fun) -> event.registerSpriteSet(type, fun::apply)))));
     }
 }

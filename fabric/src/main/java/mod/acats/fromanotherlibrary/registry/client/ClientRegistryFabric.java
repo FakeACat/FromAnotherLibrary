@@ -2,6 +2,7 @@ package mod.acats.fromanotherlibrary.registry.client;
 
 import mod.acats.fromanotherlibrary.registry.CommonMod;
 import mod.acats.fromanotherlibrary.utilities.block.Colourable;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -14,6 +15,7 @@ public class ClientRegistryFabric {
             registerEntityRenderers(clientMod);
             registerBlockEntityRenderers(clientMod);
             registerModelLayers(clientMod);
+            registerParticles(clientMod);
         });
 
         registerColourProviders(commonMod);
@@ -52,5 +54,13 @@ public class ClientRegistryFabric {
 
                     }
                 }));
+    }
+
+    private static void registerParticles(ClientMod mod) {
+        mod.getParticleClientEntries().ifPresent(entries ->
+                entries.forEach(entry ->
+                        entry.register((type, function) -> ParticleFactoryRegistry.getInstance().register(type, function::apply))
+                )
+        );
     }
 }
