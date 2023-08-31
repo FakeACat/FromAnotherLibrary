@@ -23,4 +23,5 @@ public interface ModLoaderSpecific {
     CreativeModeTab createTab(ResourceLocation id, Supplier<ItemStack> iconSupplier);
     SpawnEggItem createSpawnEgg(Supplier<EntityType<? extends Mob>> entityTypeSupplier, int primaryColour, int secondaryColour);
     Path getConfigDirectory(CommonMod mod);
+    boolean isModLoaded(String id);
 }

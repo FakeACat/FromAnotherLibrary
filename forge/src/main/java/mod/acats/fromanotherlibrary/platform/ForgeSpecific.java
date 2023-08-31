@@ -10,7 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -44,6 +46,8 @@ public class ForgeSpecific implements ModLoaderSpecific {
         ItemRegistryForge.register(mod, eventBus);
         BlockEntityRegistryForge.register(mod, eventBus);
         ParticleRegistryForge.register(mod, eventBus);
+
+        eventBus.addListener((AddPackFindersEvent event) -> DataPackRegistryForge.register(mod, event));
     }
 
     @Override
@@ -62,5 +66,10 @@ public class ForgeSpecific implements ModLoaderSpecific {
     @Override
     public Path getConfigDirectory(CommonMod mod) {
         return FMLPaths.CONFIGDIR.get();
+    }
+
+    @Override
+    public boolean isModLoaded(String id) {
+        return ModList.get().isLoaded(id);
     }
 }

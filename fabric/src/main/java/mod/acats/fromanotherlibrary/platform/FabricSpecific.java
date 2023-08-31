@@ -42,6 +42,7 @@ public class FabricSpecific implements ModLoaderSpecific {
         TabRegistryFabric.populate(mod);
         BlockEntityRegistryFabric.register(mod);
         ParticleRegistryFabric.register(mod);
+        DataPackRegistryFabric.register(mod);
     }
 
     @Override
@@ -60,5 +61,10 @@ public class FabricSpecific implements ModLoaderSpecific {
     @Override
     public Path getConfigDirectory(CommonMod mod) {
         return FabricLoader.getInstance().getConfigDir();
+    }
+
+    @Override
+    public boolean isModLoaded(String id) {
+        return FabricLoader.getInstance().isModLoaded(id);
     }
 }

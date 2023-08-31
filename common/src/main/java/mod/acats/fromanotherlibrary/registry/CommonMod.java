@@ -36,6 +36,7 @@ public interface CommonMod {
     Optional<HashMap<EntityType<? extends LivingEntity>, Supplier<AttributeSupplier.Builder>>> getEntityAttributeRegister();
     Optional<ClientMod> getClientMod();
     Optional<FALRegister<ParticleType<?>>> getParticleRegister();
+    Optional<DataPackLoader> getDataPacks();
 
     void loadConfigs(File configFolder);
 
