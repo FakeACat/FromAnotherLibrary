@@ -4,6 +4,7 @@ import mod.acats.fromanotherlibrary.FromAnotherLibrary;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,15 +28,22 @@ public interface CommonMod {
 
     String getID();
 
+    Optional<ClientMod> getClientMod();
+
     Optional<FALRegister<Item>> getItemRegister();
     Optional<FALRegister<CreativeModeTab>> getTabRegister();
     Optional<TabPopulator> getTabPopulator();
+
     Optional<FALRegister<Block>> getBlockRegister();
     Optional<FALRegister<BlockEntityType<?>>> getBlockEntityRegister();
+
     Optional<FALRegister<EntityType<?>>> getEntityRegister();
     Optional<HashMap<EntityType<? extends LivingEntity>, Supplier<AttributeSupplier.Builder>>> getEntityAttributeRegister();
-    Optional<ClientMod> getClientMod();
+
     Optional<FALRegister<ParticleType<?>>> getParticleRegister();
+
+    Optional<FALRegister<SoundEvent>> getSoundEventRegister();
+
     Optional<DataPackLoader> getDataPacks();
 
     void loadConfigs(File configFolder);

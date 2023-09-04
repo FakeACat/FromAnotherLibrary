@@ -43,6 +43,7 @@ public class FabricSpecific implements ModLoaderSpecific {
         BlockEntityRegistryFabric.register(mod);
         ParticleRegistryFabric.register(mod);
         DataPackRegistryFabric.register(mod);
+        SoundEventRegistryFabric.register(mod);
     }
 
     @Override
