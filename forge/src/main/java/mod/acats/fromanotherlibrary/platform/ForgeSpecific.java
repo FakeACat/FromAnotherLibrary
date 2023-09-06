@@ -47,6 +47,7 @@ public class ForgeSpecific implements ModLoaderSpecific {
         BlockEntityRegistryForge.register(mod, eventBus);
         ParticleRegistryForge.register(mod, eventBus);
         SoundEventRegistryForge.register(mod, eventBus);
+        MobEffectRegistryForge.register(mod, eventBus);
 
         eventBus.addListener((AddPackFindersEvent event) -> DataPackRegistryForge.register(mod, event));
     }

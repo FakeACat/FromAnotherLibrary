@@ -5,6 +5,7 @@ import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -43,6 +44,8 @@ public interface CommonMod {
     Optional<FALRegister<ParticleType<?>>> getParticleRegister();
 
     Optional<FALRegister<SoundEvent>> getSoundEventRegister();
+
+    Optional<FALRegister<MobEffect>> getMobEffectRegister();
 
     Optional<DataPackLoader> getDataPacks();
 
