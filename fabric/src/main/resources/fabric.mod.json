@@ -3,7 +3,7 @@
     "id": "fromanotherlibrary",
     "version": "${version}",
     "name": "${mod_name}",
-    "description": "Stuff to make developing my mods easier",
+    "description": "Stuff to make developing my mods easier.",
     "authors": [
         "${mod_author}"
     ],

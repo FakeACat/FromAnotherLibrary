@@ -8,7 +8,7 @@ displayName = "From Another Library"
 logoFile = "fromanotherlibrary.png"
 authors = "a cats"
 description = '''
-Stuff to make developing my mods easier
+Stuff to make developing my mods easier.
 '''
 [[dependencies.fromanotherlibrary]]
 modId = "forge"
