@@ -5,7 +5,7 @@ license = "MIT"
 modId = "fromanotherlibrary"
 version = "${file.jarVersion}"
 displayName = "From Another Library"
-logoFile = "fromanotherlibrary.png"
+logoFile = "assets/fromanotherlibrary/icon.png"
 authors = "a cats"
 description = '''
 Stuff to make developing my mods easier.
@@ -13,7 +13,7 @@ Stuff to make developing my mods easier.
 [[dependencies.fromanotherlibrary]]
 modId = "forge"
 mandatory = true
-versionRange = "[46,)"
+versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.fromanotherlibrary]]
