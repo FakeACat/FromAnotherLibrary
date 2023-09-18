@@ -1,5 +1,6 @@
 package mod.acats.fromanotherlibrary.registry;
 
+import mod.acats.fromanotherlibrary.config.FALConfig;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 
 import java.util.HashMap;
@@ -24,5 +25,9 @@ public class DataPackLoader {
      */
     public void addModCompat(String id) {
         this.addDataPack("compat_" + id, () -> ModLoaderSpecific.INSTANCE.isModLoaded(id));
+    }
+
+    public void addOptional(FALConfig.FALConfigBooleanProperty configOption) {
+        this.addDataPack(configOption.getName(), configOption::get);
     }
 }
