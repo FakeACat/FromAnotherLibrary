@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class ForgeSpecific implements ModLoaderSpecific {
     @Override
     public boolean isInDev() {
-        return FMLLoader.isProduction();
+        return !FMLLoader.isProduction();
     }
 
     @Override
