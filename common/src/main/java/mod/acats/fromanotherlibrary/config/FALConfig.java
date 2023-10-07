@@ -15,8 +15,8 @@ public abstract class FALConfig {
     protected abstract int version();
     protected abstract FALConfigProperty<?>[] properties();
 
-    private String quotedName() {
-        return '"' + this.name() + '"';
+    private String quotedName(String folderName) {
+        return '"' + folderName + '/' + this.name() + '"';
     }
 
     private int actualVersion() {
@@ -40,28 +40,28 @@ public abstract class FALConfig {
                 cfgJson = new Gson().fromJson(reader, JsonObject.class);
             }
             catch (FileNotFoundException e) {
-                FromAnotherLibrary.LOGGER.error("FileNotFoundException while trying to read config file " + this.quotedName() + ": " + e.getMessage());
+                FromAnotherLibrary.LOGGER.error("FileNotFoundException while trying to read config file " + this.quotedName(parent.getName()) + ": " + e.getMessage());
             }
             catch (JsonSyntaxException e) {
-                FromAnotherLibrary.LOGGER.error("Invalid syntax in config file " + this.quotedName() + ": " + e.getMessage());
+                FromAnotherLibrary.LOGGER.error("Invalid syntax in config file " + this.quotedName(parent.getName()) + ": " + e.getMessage());
             }
 
-            this.autoRegenOutdated.set(cfgJson);
+            this.autoRegenOutdated.set(cfgJson, parent.getName());
             if (this.autoRegenOutdated.get()) {
-                this.version.set(cfgJson);
+                this.version.set(cfgJson, parent.getName());
                 if (this.version.get() < this.actualVersion() || !this.version.isLoaded()) {
-                    FromAnotherLibrary.LOGGER.info("Config file " + this.quotedName() + " is outdated or invalid. Regenerating.");
+                    FromAnotherLibrary.LOGGER.info("Config file " + this.quotedName(parent.getName()) + " is outdated or invalid. Regenerating.");
                     this.version.set(this.actualVersion());
                     this.genFile(parent, false);
                 }
             }
         }
         else {
-            FromAnotherLibrary.LOGGER.info("Config file " + this.quotedName() + " does not exist. Generating.");
+            FromAnotherLibrary.LOGGER.info("Config file " + this.quotedName(parent.getName()) + " does not exist. Generating.");
             this.genFile(parent, true);
         }
 
-        this.setValues(cfgJson);
+        this.setValues(cfgJson, parent.getName());
     }
 
     private void addProperties(JsonObject object) {
@@ -87,10 +87,10 @@ public abstract class FALConfig {
         object.add(property.getName(), obj);
     }
 
-    private void setValues(JsonObject cfg) {
+    private void setValues(JsonObject cfg, String folderName) {
         for (FALConfigProperty<?> property:
                 this.properties()) {
-            property.set(cfg);
+            property.set(cfg, folderName);
         }
     }
 
@@ -105,10 +105,10 @@ public abstract class FALConfig {
         if (create){
             try {
                 if (!getFile(parent).createNewFile()) {
-                    FromAnotherLibrary.LOGGER.error("Unable to create config file " + this.quotedName());
+                    FromAnotherLibrary.LOGGER.error("Unable to create config file " + this.quotedName(parent.getName()));
                 }
             } catch (IOException e) {
-                FromAnotherLibrary.LOGGER.error("IOException while attempting to generate config file " + this.quotedName() + ": " + e.getMessage());
+                FromAnotherLibrary.LOGGER.error("IOException while attempting to generate config file " + this.quotedName(parent.getName()) + ": " + e.getMessage());
             }
         }
         try {
@@ -116,7 +116,7 @@ public abstract class FALConfig {
             fileWriter.write(gson.toJson(cfg));
             fileWriter.close();
         } catch (IOException e) {
-            FromAnotherLibrary.LOGGER.error("Failed writing to config file " + this.quotedName() + ": " + e.getMessage());
+            FromAnotherLibrary.LOGGER.error("Failed writing to config file " + this.quotedName(parent.getName()) + ": " + e.getMessage());
         }
     }
 
@@ -137,7 +137,7 @@ public abstract class FALConfig {
             return this.value;
         }
 
-        void set(@Nullable JsonObject cfg) {
+        void set(@Nullable JsonObject cfg, String folderName) {
             if (cfg == null) {
                 return;
             }
@@ -147,12 +147,12 @@ public abstract class FALConfig {
                     this.value = this.getFrom(jsonObject);
                 }
                 catch (NullPointerException e) {
-                    FromAnotherLibrary.LOGGER.warn("Missing value for " + '"' + this.getName() + '"' + " in config file " + quotedName() + ". Using default value. It is recommended to delete this config file to regenerate the option.");
+                    FromAnotherLibrary.LOGGER.warn("Missing value for " + '"' + this.getName() + '"' + " in config file " + quotedName(folderName) + ". Using default value. It is recommended to delete this config file to regenerate the option.");
                 }
                 this.loaded = true;
             }
             else {
-                FromAnotherLibrary.LOGGER.warn("Missing " + '"' + this.getName() + '"' + " in config file " + quotedName() + ". Using default value. It is recommended to delete this config file to regenerate the option.");
+                FromAnotherLibrary.LOGGER.warn("Missing " + '"' + this.getName() + '"' + " in config file " + quotedName(folderName) + ". Using default value. It is recommended to delete this config file to regenerate the option.");
             }
         }
 
