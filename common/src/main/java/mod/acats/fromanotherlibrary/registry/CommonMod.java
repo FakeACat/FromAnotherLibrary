@@ -47,7 +47,7 @@ public interface CommonMod {
 
     Optional<FALRegister<MobEffect>> getMobEffectRegister();
 
-    Optional<DataPackLoader> getDataPacks();
+    Optional<ResourcePackLoader> getResourcePacks();
 
     void loadConfigs(File configFolder);
 

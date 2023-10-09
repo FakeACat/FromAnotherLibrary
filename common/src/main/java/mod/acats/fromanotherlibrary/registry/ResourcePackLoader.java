@@ -6,16 +6,27 @@ import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataPackLoader {
-    final List<String> dataPacks = new ArrayList<>();
+public class ResourcePackLoader {
+    final List<FALResourcePack> resourcePacks = new ArrayList<>();
 
     /**
      * Adds a data pack to be automatically loaded on both Forge and Fabric
      * @param name The name of the folder that is the data pack. Looks in main/resources/resourcepacks.
      *             Automatically prefixed by your mod's ID to prevent mods adding identical names.
+     * @param enabled Whether the data pack should be enabled by default
      */
-    public void addDataPack(String name) {
-        dataPacks.add(name);
+    public void addDataPack(String name, boolean enabled) {
+        resourcePacks.add(new FALResourcePack(name, enabled, true));
+    }
+
+    /**
+     * Adds a resource pack to be automatically loaded on both Forge and Fabric
+     * @param name The name of the folder that is the resource pack. Looks in main/resources/resourcepacks.
+     *             Automatically prefixed by your mod's ID to prevent mods adding identical names.
+     * @param enabled Whether the resource pack should be enabled by default
+     */
+    public void addResourcePack(String name, boolean enabled) {
+        resourcePacks.add(new FALResourcePack(name, enabled, false));
     }
 
     /**
@@ -24,7 +35,7 @@ public class DataPackLoader {
      */
     public void addModCompat(String id) {
         if (ModLoaderSpecific.INSTANCE.isModLoaded(id)) {
-            this.addDataPack("compat_" + id);
+            this.addDataPack("compat_" + id, true);
         }
     }
 
@@ -34,7 +45,10 @@ public class DataPackLoader {
      */
     public void addOptional(FALConfig.FALConfigBooleanProperty configOption) {
         if (configOption.get()) {
-            this.addDataPack(configOption.getName());
+            this.addDataPack(configOption.getName(), true);
         }
+    }
+
+    public record FALResourcePack(String id, boolean enabledByDefault, boolean data) {
     }
 }

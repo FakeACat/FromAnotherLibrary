@@ -42,7 +42,7 @@ public class FabricSpecific implements ModLoaderSpecific {
         TabRegistryFabric.populate(mod);
         BlockEntityRegistryFabric.register(mod);
         ParticleRegistryFabric.register(mod);
-        DataPackRegistryFabric.register(mod);
+        ResourcePackRegistryFabric.register(mod);
         SoundEventRegistryFabric.register(mod);
         MobEffectRegistryFabric.register(mod);
     }

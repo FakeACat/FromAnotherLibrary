@@ -49,7 +49,7 @@ public class ForgeSpecific implements ModLoaderSpecific {
         SoundEventRegistryForge.register(mod, eventBus);
         MobEffectRegistryForge.register(mod, eventBus);
 
-        eventBus.addListener((AddPackFindersEvent event) -> DataPackRegistryForge.register(mod, event));
+        eventBus.addListener((AddPackFindersEvent event) -> ResourcePackRegistryForge.register(mod, event));
     }
 
     @Override
