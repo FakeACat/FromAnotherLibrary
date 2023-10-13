@@ -8,6 +8,7 @@
     "FireBlockInvoker"
   ],
   "client": [
+    "PlayerRendererMixin"
   ],
   "server": [
   ],
