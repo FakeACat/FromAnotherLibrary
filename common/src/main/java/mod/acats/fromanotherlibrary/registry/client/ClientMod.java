@@ -8,8 +8,18 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface ClientMod {
-    Optional<Iterable<BlockEntityRendererEntry<?>>> getBlockEntityRendererEntries();
-    Optional<Iterable<EntityRendererEntry<?>>> getEntityRendererEntries();
-    Optional<Iterable<ParticleClientEntry<?>>> getParticleClientEntries();
-    Optional<HashMap<ModelLayerLocation, Supplier<LayerDefinition>>> getModelLayerRegister();
+    default Optional<Iterable<BlockEntityRendererEntry<?>>> getBlockEntityRendererEntries() {
+        return Optional.empty();
+    }
+    default Optional<Iterable<EntityRendererEntry<?>>> getEntityRendererEntries() {
+        return Optional.empty();
+    }
+    default Optional<Iterable<ParticleClientEntry<?>>> getParticleClientEntries() {
+        return Optional.empty();
+    }
+    default Optional<HashMap<
+            ModelLayerLocation, Supplier<LayerDefinition>
+            >> getModelLayerRegister() {
+        return Optional.empty();
+    }
 }

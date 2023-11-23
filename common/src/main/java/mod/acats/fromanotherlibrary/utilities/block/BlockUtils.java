@@ -4,8 +4,10 @@ import mod.acats.fromanotherlibrary.mixin.FireBlockInvoker;
 import mod.acats.fromanotherlibrary.registry.CommonMod;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 
 public class BlockUtils {
+    @ApiStatus.Internal
     public static void setFlammableBlocks(CommonMod mod) {
         mod.getBlockRegister().ifPresent(blockRegister -> {
 

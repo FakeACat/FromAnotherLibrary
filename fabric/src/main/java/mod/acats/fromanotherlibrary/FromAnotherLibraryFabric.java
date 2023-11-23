@@ -1,6 +1,6 @@
 package mod.acats.fromanotherlibrary;
 
-import mod.acats.fromanotherlibrary.recipes.DamageItems;
+import mod.acats.fromanotherlibrary.content.recipes.DamageItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

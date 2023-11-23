@@ -29,27 +29,55 @@ public interface CommonMod {
 
     String getID();
 
-    Optional<ClientMod> getClientMod();
+    default Optional<ClientMod> getClientMod() {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<Item>> getItemRegister();
-    Optional<FALRegister<CreativeModeTab>> getTabRegister();
-    Optional<TabPopulator> getTabPopulator();
+    default Optional<FALRegister<Item>> getItemRegister() {
+        return Optional.empty();
+    }
+    default Optional<FALRegister<CreativeModeTab>> getTabRegister() {
+        return Optional.empty();
+    }
+    default Optional<TabPopulator> getTabPopulator() {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<Block>> getBlockRegister();
-    Optional<FALRegister<BlockEntityType<?>>> getBlockEntityRegister();
+    default Optional<FALRegister<Block>> getBlockRegister() {
+        return Optional.empty();
+    }
+    default Optional<FALRegister<BlockEntityType<?>>> getBlockEntityRegister() {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<EntityType<?>>> getEntityRegister();
-    Optional<HashMap<EntityType<? extends LivingEntity>, Supplier<AttributeSupplier.Builder>>> getEntityAttributeRegister();
+    default Optional<FALRegister<EntityType<?>>> getEntityRegister() {
+        return Optional.empty();
+    }
+    default Optional<HashMap<
+                    EntityType<? extends LivingEntity>,
+                    Supplier<AttributeSupplier.Builder>
+                    >> getEntityAttributeRegister() {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<ParticleType<?>>> getParticleRegister();
+    default Optional<FALRegister<ParticleType<?>>> getParticleRegister()  {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<SoundEvent>> getSoundEventRegister();
+    default Optional<FALRegister<SoundEvent>> getSoundEventRegister() {
+        return Optional.empty();
+    }
 
-    Optional<FALRegister<MobEffect>> getMobEffectRegister();
+    default Optional<FALRegister<MobEffect>> getMobEffectRegister() {
+        return Optional.empty();
+    }
 
-    Optional<ResourcePackLoader> getResourcePacks();
+    default Optional<ResourcePackLoader> getResourcePacks() {
+        return Optional.empty();
+    }
 
-    void loadConfigs(File configFolder);
+    default void loadConfigs(File configFolder){
+    }
 
     default void preRegisterContent() {
     }
@@ -58,7 +86,7 @@ public interface CommonMod {
     }
 
     /**
-     * Registers all common content from in the CommonMod
+     * Registers all common content in the CommonMod
      * ClientRegistryFabric.registerClient must be used in the ClientModInitializer to register client content on Fabric
      */
     default void init() {

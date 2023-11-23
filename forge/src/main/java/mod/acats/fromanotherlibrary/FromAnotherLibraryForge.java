@@ -1,6 +1,6 @@
 package mod.acats.fromanotherlibrary;
 
-import mod.acats.fromanotherlibrary.recipes.DamageItems;
+import mod.acats.fromanotherlibrary.content.recipes.DamageItems;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;

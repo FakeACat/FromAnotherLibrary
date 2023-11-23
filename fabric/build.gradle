@@ -51,10 +51,6 @@ tasks.named("sourcesJar", Jar) {
 
 processResources {
     from project(":common").sourceSets.main.resources
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
 }
 
 publishing {

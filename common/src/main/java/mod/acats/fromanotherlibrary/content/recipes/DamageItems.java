@@ -1,4 +1,4 @@
-package mod.acats.fromanotherlibrary.recipes;
+package mod.acats.fromanotherlibrary.content.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
