@@ -1,7 +1,10 @@
 package mod.acats.fromanotherlibrary.registry.client;
 
+import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.SharedSuggestionProvider;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -21,5 +24,9 @@ public interface ClientMod {
             ModelLayerLocation, Supplier<LayerDefinition>
             >> getModelLayerRegister() {
         return Optional.empty();
+    }
+    default void registerClientCommands(CommandDispatcher<? extends SharedSuggestionProvider> dispatcher, CommandBuildContext buildContext) {
+    }
+    default void registerShaders() {
     }
 }

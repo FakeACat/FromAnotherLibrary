@@ -12,11 +12,17 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = FromAnotherLibrary.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
+    @SubscribeEvent
+    public static void clientSetupEvent(FMLClientSetupEvent event) {
+        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(ClientMod::registerShaders));
+    }
+
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(clientMod -> {

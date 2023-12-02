@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class WardenMixin {
     @Inject(at = @At("HEAD"), method = "canTargetEntity", cancellable = true)
     private void fal$canWardenTargetEntity(Entity target, CallbackInfoReturnable<Boolean> cir) {
-        if (target.getType().is(FALEntityTypeTags.IGNORED_BY_WARDENS) ||
-                (target instanceof SometimesTargetedByWardens sometimesTargeted && !sometimesTargeted.canBeTargetedByWarden((Warden) (Object) this))) {
+        if (target != null && (target.getType().is(FALEntityTypeTags.IGNORED_BY_WARDENS) ||
+                (target instanceof SometimesTargetedByWardens sometimesTargeted && !sometimesTargeted.canBeTargetedByWarden((Warden) (Object) this)))) {
             cir.setReturnValue(false);
         }
     }

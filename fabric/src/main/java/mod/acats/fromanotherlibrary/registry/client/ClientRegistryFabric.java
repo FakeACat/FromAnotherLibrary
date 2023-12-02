@@ -2,6 +2,7 @@ package mod.acats.fromanotherlibrary.registry.client;
 
 import mod.acats.fromanotherlibrary.registry.CommonMod;
 import mod.acats.fromanotherlibrary.utilities.block.Colourable;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -12,10 +13,14 @@ import net.minecraft.world.level.block.Block;
 public class ClientRegistryFabric {
     public static void registerClient(CommonMod commonMod) {
         commonMod.getClientMod().ifPresent(clientMod -> {
+            clientMod.registerShaders();
+
             registerEntityRenderers(clientMod);
             registerBlockEntityRenderers(clientMod);
             registerModelLayers(clientMod);
             registerParticles(clientMod);
+
+            ClientCommandRegistrationCallback.EVENT.register(clientMod::registerClientCommands);
         });
 
         registerColourProviders(commonMod);

@@ -2,6 +2,7 @@ package mod.acats.fromanotherlibrary.platform;
 
 import mod.acats.fromanotherlibrary.registry.*;
 import mod.acats.fromanotherlibrary.utilities.block.BlockUtils;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -32,6 +34,7 @@ public class FabricSpecific implements ModLoaderSpecific {
         return false;
     }
 
+    @ApiStatus.Internal
     @Override
     public void registerAllCommonModContent(CommonMod mod) {
         EntityRegistryFabric.register(mod);
@@ -45,6 +48,8 @@ public class FabricSpecific implements ModLoaderSpecific {
         ResourcePackRegistryFabric.register(mod);
         SoundEventRegistryFabric.register(mod);
         MobEffectRegistryFabric.register(mod);
+
+        CommandRegistrationCallback.EVENT.register(mod::registerCommands);
     }
 
     @Override

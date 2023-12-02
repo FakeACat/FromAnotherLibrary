@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.nio.file.Path;
 import java.util.ServiceLoader;
@@ -19,6 +20,7 @@ public interface ModLoaderSpecific {
     boolean isInDev();
     boolean isFabric();
     boolean isForge();
+    @ApiStatus.Internal
     void registerAllCommonModContent(CommonMod mod);
     CreativeModeTab createTab(ResourceLocation id, Supplier<ItemStack> iconSupplier);
     SpawnEggItem createSpawnEgg(Supplier<EntityType<? extends Mob>> entityTypeSupplier, int primaryColour, int secondaryColour);

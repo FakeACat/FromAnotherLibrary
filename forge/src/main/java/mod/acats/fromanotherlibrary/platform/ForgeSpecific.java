@@ -16,6 +16,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -36,6 +37,7 @@ public class ForgeSpecific implements ModLoaderSpecific {
         return true;
     }
 
+    @ApiStatus.Internal
     @Override
     public void registerAllCommonModContent(CommonMod mod) {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();

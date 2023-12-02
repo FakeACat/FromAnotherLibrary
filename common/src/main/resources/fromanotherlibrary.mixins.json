@@ -9,7 +9,10 @@
     "WardenMixin"
   ],
   "client": [
-    "PlayerRendererMixin"
+    "client.GameRendererAccessor",
+    "client.GameRendererMixin",
+    "client.PlayerRendererMixin",
+    "client.PostPassMixin"
   ],
   "server": [
   ],

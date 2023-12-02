@@ -15,6 +15,9 @@
     "entrypoints": {
         "main": [
             "mod.acats.fromanotherlibrary.FromAnotherLibraryFabric"
+        ],
+        "client": [
+            "mod.acats.fromanotherlibrary.FromAnotherLibraryClientFabric"
         ]
     },
     "mixins": [

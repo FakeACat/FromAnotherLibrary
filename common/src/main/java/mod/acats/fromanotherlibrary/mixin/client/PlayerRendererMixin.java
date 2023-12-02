@@ -1,4 +1,4 @@
-package mod.acats.fromanotherlibrary.mixin;
+package mod.acats.fromanotherlibrary.mixin.client;
 
 import mod.acats.fromanotherlibrary.utilities.item.Aimable;
 import net.minecraft.client.model.HumanoidModel;

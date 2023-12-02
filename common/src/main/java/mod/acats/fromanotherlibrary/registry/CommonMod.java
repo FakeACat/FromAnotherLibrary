@@ -1,8 +1,12 @@
 package mod.acats.fromanotherlibrary.registry;
 
+import com.mojang.brigadier.CommandDispatcher;
 import mod.acats.fromanotherlibrary.FromAnotherLibrary;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -74,6 +78,9 @@ public interface CommonMod {
 
     default Optional<ResourcePackLoader> getResourcePacks() {
         return Optional.empty();
+    }
+
+    default void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext, Commands.CommandSelection selection){
     }
 
     default void loadConfigs(File configFolder){
