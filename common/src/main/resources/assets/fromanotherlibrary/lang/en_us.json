@@ -23,6 +23,7 @@
   "gui.fromanotherlibrary.config.edit": "Edit...",
   "gui.fromanotherlibrary.config.delete": "Delete",
   "gui.fromanotherlibrary.config.add": "Add New",
+  "gui.fromanotherlibrary.config.requires_restart": "Minecraft must be restarted for changes to this option to take effect!",
 
   "gui.fromanotherlibrary.config.spawn_values.enabled": "Enabled?",
   "gui.fromanotherlibrary.config.spawn_values.weight": "Spawn Weight",
