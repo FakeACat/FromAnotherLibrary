@@ -1,6 +1,7 @@
 package mod.acats.fromanotherlibrary.registry;
 
 import mod.acats.fromanotherlibrary.config.FALConfig;
+import mod.acats.fromanotherlibrary.config.v2.properties.BooleanProperty;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 
 import java.util.ArrayList;
@@ -44,6 +45,16 @@ public class ResourcePackLoader {
      * @param configOption The config option that controls whether this data pack is enabled.
      */
     public void addOptional(FALConfig.FALConfigBooleanProperty configOption) {
+        if (configOption.get()) {
+            this.addDataPack(configOption.getName(), true);
+        }
+    }
+
+    /**
+     * Adds a data pack that is only loaded when enabled in a config
+     * @param configOption The config option that controls whether this data pack is enabled.
+     */
+    public void addOptional(BooleanProperty configOption) {
         if (configOption.get()) {
             this.addDataPack(configOption.getName(), true);
         }

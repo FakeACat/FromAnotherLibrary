@@ -2,6 +2,7 @@ package mod.acats.fromanotherlibrary.registry;
 
 import com.mojang.brigadier.CommandDispatcher;
 import mod.acats.fromanotherlibrary.FromAnotherLibrary;
+import mod.acats.fromanotherlibrary.config.v2.ModConfig;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import net.minecraft.commands.CommandBuildContext;
@@ -84,6 +85,16 @@ public interface CommonMod {
     }
 
     default void loadConfigs(File configFolder){
+        getConfigs().ifPresent(configs -> {
+            for (ModConfig config:
+                 configs) {
+                config.load(configFolder);
+            }
+        });
+    }
+
+    default Optional<ModConfig[]> getConfigs() {
+        return Optional.empty();
     }
 
     default void preRegisterContent() {

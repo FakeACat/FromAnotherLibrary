@@ -3,6 +3,7 @@ package mod.acats.fromanotherlibrary.client.shader;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mod.acats.fromanotherlibrary.FromAnotherLibrary;
+import mod.acats.fromanotherlibrary.content.config.ShaderConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +22,11 @@ public class MultiShaderController {
     }
 
     public static void loadShader(ResourceLocation location) {
+
+        if (!ShaderConfig.INSTANCE.shadersEnabled.get()) {
+            return;
+        }
+
         PostChain postEffect = SHADERS.get(location);
         if (postEffect != null) {
             postEffect.close();

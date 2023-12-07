@@ -3,6 +3,8 @@ package mod.acats.fromanotherlibrary.content;
 import com.mojang.brigadier.CommandDispatcher;
 import mod.acats.fromanotherlibrary.content.commands.client.DevShaderCommand;
 import mod.acats.fromanotherlibrary.content.client.shaders.FALShaders;
+import mod.acats.fromanotherlibrary.content.commands.client.FALConfigCommand;
+import mod.acats.fromanotherlibrary.content.config.ShaderConfig;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -11,11 +13,14 @@ public class FromAnotherLibraryClientMod implements ClientMod {
 
     @Override
     public void registerClientCommands(CommandDispatcher<? extends SharedSuggestionProvider> dispatcher, CommandBuildContext buildContext) {
-        new DevShaderCommand(dispatcher);
+        if (ShaderConfig.INSTANCE.commandEnabled.get()) {
+            new DevShaderCommand(dispatcher);
+            new FALConfigCommand(dispatcher);
+        }
     }
 
     @Override
-    public void registerShaders() {
+    public void setupClient() {
         FALShaders.register();
     }
 }

@@ -27,6 +27,6 @@ public interface ClientMod {
     }
     default void registerClientCommands(CommandDispatcher<? extends SharedSuggestionProvider> dispatcher, CommandBuildContext buildContext) {
     }
-    default void registerShaders() {
+    default void setupClient() {
     }
 }

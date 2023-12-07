@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
+@Deprecated
 public abstract class FALConfig {
     private static final int GLOBAL_VERSION = 1;
     protected abstract String name();

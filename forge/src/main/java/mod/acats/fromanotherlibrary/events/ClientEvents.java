@@ -1,16 +1,20 @@
 package mod.acats.fromanotherlibrary.events;
 
 import mod.acats.fromanotherlibrary.FromAnotherLibrary;
+import mod.acats.fromanotherlibrary.client.screen.ConfigListScreen;
 import mod.acats.fromanotherlibrary.registry.CommonMod;
 import mod.acats.fromanotherlibrary.registry.client.ClientMod;
 import mod.acats.fromanotherlibrary.utilities.block.Colourable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -20,7 +24,14 @@ import java.util.function.Supplier;
 public class ClientEvents {
     @SubscribeEvent
     public static void clientSetupEvent(FMLClientSetupEvent event) {
-        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(ClientMod::registerShaders));
+        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(clientMod -> {
+            clientMod.setupClient();
+
+            mod.getConfigs().ifPresent(
+                    configs -> ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                            () -> new ConfigScreenHandler.ConfigScreenFactory(
+                                    (mc, screen) -> new ConfigListScreen(mod.getID(), configs, Minecraft.getInstance().screen))));
+        }));
     }
 
     @SubscribeEvent

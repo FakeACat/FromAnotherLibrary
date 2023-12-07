@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Block;
 public class ClientRegistryFabric {
     public static void registerClient(CommonMod commonMod) {
         commonMod.getClientMod().ifPresent(clientMod -> {
-            clientMod.registerShaders();
+            clientMod.setupClient();
 
             registerEntityRenderers(clientMod);
             registerBlockEntityRenderers(clientMod);

@@ -47,4 +47,20 @@ public class Maths {
                 ? Optional.empty()
                 : Optional.of((float) (Mth.atan2(vec3.z, vec3.x) - (float) Math.PI / 2.0F));
     }
+
+    public static Optional<Integer> tryParseInt(String string) {
+        try {
+            return Optional.of(Integer.parseInt(string));
+        } catch (NumberFormatException var3) {
+            return Optional.empty();
+        }
+    }
+
+    public static Optional<Float> tryParseFloat(String string) {
+        try {
+            return Optional.of(Float.parseFloat(string));
+        } catch (NumberFormatException var3) {
+            return Optional.empty();
+        }
+    }
 }

@@ -1,0 +1,33 @@
+{
+  "gui.fromanotherlibrary.config.name": "FromAnotherLibrary Config Files",
+
+  "gui.fromanotherlibrary.config.shaders": "Shaders",
+  "gui.fromanotherlibrary.config.shaders.command_enabled": "Shader Command Enabled",
+  "gui.fromanotherlibrary.config.shaders.shaders_enabled": "Shaders Enabled",
+
+  "gui.fromanotherlibrary.config.example": "Examples",
+  "gui.fromanotherlibrary.config.example.example_array": "Example Array",
+  "gui.fromanotherlibrary.config.example.example_boolean": "Example Boolean",
+  "gui.fromanotherlibrary.config.example.example_float": "Example Float",
+  "gui.fromanotherlibrary.config.example.example_integer": "Example Integer",
+  "gui.fromanotherlibrary.config.example.example_spawn_values": "Example Spawn Values",
+
+  "gui.fromanotherlibrary.config.warden": "Warden Tweaks",
+  "gui.fromanotherlibrary.config.warden.warden_ignored": "Warden Ignore List",
+
+  "gui.fromanotherlibrary.config.true": "True",
+  "gui.fromanotherlibrary.config.false": "False",
+  "gui.fromanotherlibrary.config.open": "Open File",
+  "gui.fromanotherlibrary.config.save": "Save",
+  "gui.fromanotherlibrary.config.reset": "Reset To Default",
+  "gui.fromanotherlibrary.config.edit": "Edit...",
+  "gui.fromanotherlibrary.config.delete": "Delete",
+  "gui.fromanotherlibrary.config.add": "Add New",
+
+  "gui.fromanotherlibrary.config.spawn_values.enabled": "Enabled?",
+  "gui.fromanotherlibrary.config.spawn_values.weight": "Spawn Weight",
+  "gui.fromanotherlibrary.config.spawn_values.min": "Minimum Group Size",
+  "gui.fromanotherlibrary.config.spawn_values.max": "Maximum Group Size",
+
+  "command.fromanotherlibrary.no_config": "Mod %s does not have a config file registered by FromAnotherLibrary!"
+}
