@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -28,7 +28,7 @@ public class ClientEvents {
             mod.getClientMod().ifPresent(ClientMod::setupClient);
 
             mod.getConfigs().ifPresent(
-                    configs -> ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                    configs -> ModList.get().getModContainerById(id).orElseThrow().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                             () -> new ConfigScreenHandler.ConfigScreenFactory(
                                     (mc, screen) -> new ConfigListScreen(mod.getID(), configs, Minecraft.getInstance().screen))));
         });
