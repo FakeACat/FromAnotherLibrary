@@ -24,14 +24,14 @@ import java.util.function.Supplier;
 public class ClientEvents {
     @SubscribeEvent
     public static void clientSetupEvent(FMLClientSetupEvent event) {
-        CommonMod.ALL.forEach((id, mod) -> mod.getClientMod().ifPresent(clientMod -> {
-            clientMod.setupClient();
+        CommonMod.ALL.forEach((id, mod) -> {
+            mod.getClientMod().ifPresent(ClientMod::setupClient);
 
             mod.getConfigs().ifPresent(
                     configs -> ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                             () -> new ConfigScreenHandler.ConfigScreenFactory(
                                     (mc, screen) -> new ConfigListScreen(mod.getID(), configs, Minecraft.getInstance().screen))));
-        }));
+        });
     }
 
     @SubscribeEvent

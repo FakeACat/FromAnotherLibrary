@@ -18,6 +18,9 @@
         ],
         "client": [
             "mod.acats.fromanotherlibrary.FromAnotherLibraryClientFabric"
+        ],
+        "modmenu": [
+            "mod.acats.fromanotherlibrary.compat.FALModMenu"
         ]
     },
     "mixins": [
