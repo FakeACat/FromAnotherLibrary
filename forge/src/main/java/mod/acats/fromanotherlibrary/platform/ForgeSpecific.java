@@ -1,6 +1,8 @@
 package mod.acats.fromanotherlibrary.platform;
 
 import mod.acats.fromanotherlibrary.registry.*;
+import mod.acats.fromanotherlibrary.spawning.ForgeSimpleSpawns;
+import mod.acats.fromanotherlibrary.spawning.SimpleSpawns;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -75,5 +77,10 @@ public class ForgeSpecific implements ModLoaderSpecific {
     @Override
     public boolean isModLoaded(String id) {
         return ModList.get().isLoaded(id);
+    }
+
+    @Override
+    public SimpleSpawns getSimpleSpawns() {
+        return ForgeSimpleSpawns.ENTRIES::add;
     }
 }

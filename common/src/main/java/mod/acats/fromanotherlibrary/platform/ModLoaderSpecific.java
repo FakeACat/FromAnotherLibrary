@@ -1,6 +1,7 @@
 package mod.acats.fromanotherlibrary.platform;
 
 import mod.acats.fromanotherlibrary.registry.CommonMod;
+import mod.acats.fromanotherlibrary.spawning.SimpleSpawns;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -26,4 +27,5 @@ public interface ModLoaderSpecific {
     SpawnEggItem createSpawnEgg(Supplier<EntityType<? extends Mob>> entityTypeSupplier, int primaryColour, int secondaryColour);
     Path getConfigDirectory(CommonMod mod);
     boolean isModLoaded(String id);
+    SimpleSpawns getSimpleSpawns();
 }
