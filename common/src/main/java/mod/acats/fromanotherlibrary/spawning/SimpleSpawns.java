@@ -4,6 +4,7 @@ import mod.acats.fromanotherlibrary.config.v2.SpawnValues;
 import mod.acats.fromanotherlibrary.platform.ModLoaderSpecific;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
@@ -18,7 +19,15 @@ public interface SimpleSpawns {
         return ModLoaderSpecific.INSTANCE.getSimpleSpawns();
     }
 
-    void add(SpawnEntry<?> spawnEntry);
+    <T extends Mob> void add(Supplier<EntityType<T>> entityTypeSupplier,
+                            MobCategory category,
+                            int weight,
+                            int groupMin,
+                            int groupMax,
+                            SpawnPlacements.Type placementType,
+                            Heightmap.Types heightmapType,
+                            SpawnPlacements.SpawnPredicate<T> spawnPredicate,
+                            TagKey<Biome> biomes);
 
     default <T extends Monster> void addMonster(Supplier<EntityType<T>> entityTypeSupplier,
                                                       int weight,
@@ -26,7 +35,7 @@ public interface SimpleSpawns {
                                                       int max,
                                                       SpawnPlacements.SpawnPredicate<T> spawnPredicate,
                                                       TagKey<Biome> biomes) {
-        add(new SpawnEntry<>(
+        add(
                 entityTypeSupplier,
                 MobCategory.MONSTER,
                 weight,
@@ -36,7 +45,7 @@ public interface SimpleSpawns {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 spawnPredicate,
                 biomes
-        ));
+        );
     }
 
     default <T extends Monster> void addMonster(Supplier<EntityType<T>> entityTypeSupplier,

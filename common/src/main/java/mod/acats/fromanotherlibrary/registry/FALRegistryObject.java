@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class FALRegistryObject<T> {
+public class FALRegistryObject<T> implements Supplier<T> {
     FALRegistryObject(Supplier<T> supplier){
         this.supplier = supplier;
     }
@@ -18,6 +18,7 @@ public class FALRegistryObject<T> {
         return this.object;
     }
 
+    @Override
     @NotNull public T get(){
         return Objects.requireNonNull(this.object, "Attempted to get From Another Library registry object before registering it");
     }

@@ -3,14 +3,20 @@ package mod.acats.fromanotherlibrary.platform;
 import mod.acats.fromanotherlibrary.registry.*;
 import mod.acats.fromanotherlibrary.spawning.ForgeSimpleSpawns;
 import mod.acats.fromanotherlibrary.spawning.SimpleSpawns;
+import mod.acats.fromanotherlibrary.spawning.SpawnEntry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -81,6 +87,18 @@ public class ForgeSpecific implements ModLoaderSpecific {
 
     @Override
     public SimpleSpawns getSimpleSpawns() {
-        return ForgeSimpleSpawns.ENTRIES::add;
+        return ForgeSpecific::addSpawnEntry;
+    }
+
+    private static <T extends Mob> void addSpawnEntry(Supplier<EntityType<T>> entityTypeSupplier,
+                                                      MobCategory category,
+                                                      int weight,
+                                                      int groupMin,
+                                                      int groupMax,
+                                                      SpawnPlacements.Type placementType,
+                                                      Heightmap.Types heightmapType,
+                                                      SpawnPlacements.SpawnPredicate<T> spawnPredicate,
+                                                      TagKey<Biome> biomes) {
+        ForgeSimpleSpawns.ENTRIES.add(new SpawnEntry<>(entityTypeSupplier, category, weight, groupMin, groupMax, placementType, heightmapType, spawnPredicate, biomes));
     }
 }

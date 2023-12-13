@@ -22,7 +22,7 @@ public class FALRegister<T> {
     }
 
     public final void forEach(BiConsumer<String, Supplier<? extends T>> action){
-        map.forEach((id, registryObject) -> action.accept(id, registryObject::get));
+        map.forEach(action);
     }
 
     public final Optional<T> get(String id) {
