@@ -36,9 +36,7 @@ public class ArrayProperty extends ConfigProperty<String[]> {
             if (s.endsWith(":*")){
                 mods.add(s.split(":")[0]);
             }
-            else{
-                strings.add(s);
-            }
+            strings.add(s);
         }
         return strings.toArray(new String[0]);
     }

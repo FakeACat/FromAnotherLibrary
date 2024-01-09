@@ -7,8 +7,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
-public abstract class ConfigProperty<T> {
+public abstract class ConfigProperty<T> implements Supplier<T> {
     private final String name;
     public final @Nullable String description;
     public final T defaultValue;
@@ -28,6 +29,7 @@ public abstract class ConfigProperty<T> {
         this.updatedValue = null;
     }
 
+    @Override
     public T get(){
         return this.value;
     }

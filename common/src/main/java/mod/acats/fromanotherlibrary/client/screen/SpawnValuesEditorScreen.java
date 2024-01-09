@@ -89,7 +89,7 @@ public class SpawnValuesEditorScreen extends Screen {
 
         public EnabledEntry() {
             button = CycleButton.booleanBuilder(Component.translatable("gui.fromanotherlibrary.config.true"), Component.translatable("gui.fromanotherlibrary.config.false"))
-                    .withInitialValue(property.get().enabled())
+                    .withInitialValue(property.menuValue().enabled())
                     .displayOnlyValue()
                     .create(10, 5, 60, 20, Component.literal("Boolean Option"), (button, bl) -> property.updatedValue = property.menuValue().setEnabled(bl));
         }
